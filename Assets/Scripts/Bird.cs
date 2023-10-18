@@ -17,6 +17,9 @@ public class Bird : MonoBehaviour
     public GameObject blueBird;
     public GameObject redBird;
     public GameObject flash;
+    //public AudioSource onJump;
+    AudioSource source;
+    public AudioClip scoreSound;
 
 
     void Update()
@@ -24,9 +27,14 @@ public class Bird : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             rb.velocity = Vector2.up * jumpSpeed;
+            source.clip = scoreSound;
+            source.Play();
         }
 
         transform.eulerAngles = new Vector3(0, 0, rb.velocity.y * rotateScale);
+        
+
+        //source.PlayOneShot(onJump);
     }
 
     private void Start()
@@ -36,7 +44,8 @@ public class Bird : MonoBehaviour
         Pipe.speed = speed;
 
         ChooseSkin();
-        
+
+        source = GetComponent<AudioSource>();
     }
 
     void ChooseSkin()
@@ -87,6 +96,7 @@ public class Bird : MonoBehaviour
     {
         score++;
         scoreText.text = score.ToString();
+        //var source = GetComponent<AudioSource>();
         
     }
     
